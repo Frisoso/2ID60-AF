@@ -1,0 +1,16 @@
+amqp==2.2.2
+anyjson==0.3.3
+appdirs==1.4.3
+billiard==3.5.0.3
+celery==4.1.0
+Django==1.10.3
+django-videokit==0.0.4
+kombu==4.1.0
+olefile==0.44
+packaging==16.8
+Pillow==5.0.0
+pyparsing==2.2.0
+pytz==2017.3
+redis==2.10.6
+six==1.11.0
+vine==1.1.4
