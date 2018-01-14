@@ -30,7 +30,16 @@ def post_new(request):
             video = request.FILES.get('video', None)
 
             if video:
-                post_item = MediaItem(video = video)
+                post_item = Post(video = video)
+
+                title = request.POST.get('title', None);
+                description = request.POST.get('description', None);
+
+                if title:
+                    post_item.title = title
+                if description:
+                    post_item.description = description
+
                 post_item.author = request.user
                 post_item.upload_date = timezone.now()
 
@@ -42,7 +51,7 @@ def post_new(request):
                 return HttpResponseRedirect(reverse('post_list'))
 
     context = {
-        'item_create_form' : post_create_form,
+        'form' : post_create_form
     }
 
     return render(request, template, context)

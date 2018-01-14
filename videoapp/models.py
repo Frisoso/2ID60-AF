@@ -22,8 +22,8 @@ class Post(models.Model):
     video_duration = models.IntegerField(null = True, blank = True)
     video_thumbnail = models.ImageField(null = True, blank = True)
 
-    video_mp4 = VideoSpecField(source = 'video', format = 'mp4')
-    video_ogg = VideoSpecField(source = 'video', format = 'ogg')
+    #video_mp4 = VideoSpecField(source = 'video', format = 'mp4')
+    #video_ogg = VideoSpecField(source = 'video', format = 'ogg')
 
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200, default='SampleTitle')
