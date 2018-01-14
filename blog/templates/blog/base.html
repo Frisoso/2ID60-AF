@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>VIDEOwebsite</title>
+    <script src="https://use.fontawesome.com/e4e476d222.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+        <nav class=" page-header navbar-fixed-top">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'post_new' %}" class="top-menu fab fab-action-button"><i class="fa fa-upload" aria-hidden="true"></i></a>
+
+                    
+                    <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+                {% else %}
+                <a href="{% url 'signup' %}" class="top-menu">new account<span class="glyphicon glyphicon-plus"></span></a><br />
+                    <a href="{% url 'login' %}" class="top-menu">login<span class="glyphicon glyphicon-lock"></span></a>
+                {% endif %}
+                <a href="/">
+                    <!-- <h1>Image Board</h1> -->
+                    <svg class="svg-logo" width="180" height="38" viewBox="0 0 180 38">
+                            <defs>
+                              <clipPath id="clip_1">
+                                <rect width="94" height="38" />
+                              </clipPath>
+                            </defs>
+                            <rect width="180" height="38" fill="white" fill-opacity="0" path="none" />
+                            <g transform="translate(0,1)">
+                              <text x="28" y="28" font-family="Verdana" font-size="20" fill="white">VIDEOwebsite</text>
+                              <g clip-path="url(#clip_1)">
+                                <rect width="94" height="38" rx="10" ry="10" fill="white" />
+                                <text x="10" y="28" font-family="fontawesome" font-size="20" fill="#F44336">&#xf04b</text>
+                                <text x="28" y="28" font-family="Verdana" font-size="20" fill="#F44336">VIDEOwebsite</text>
+                              </g>
+                            </g>
+                            
+                          </svg>
+                </a>
+        </nav>
+        <div class="container">
+            
+                {% block content %}
+                {% endblock %}
+
+        </div>
+    </body>
+
+</html>
