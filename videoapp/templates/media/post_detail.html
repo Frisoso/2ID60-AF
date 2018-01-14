@@ -12,7 +12,7 @@
             </script>
 
         <div class="videocontainer">
-            <video src="" class="theater-video" poster="{% get_media_prefix %}{{ post.image }}"></video>
+            <video controls src="{% get_media_prefix %}{{post.video}}" class="theater-video" poster="{% get_media_prefix %}{{ post.video_thumbnail }}" type="{{ post.video_mimetype }}"></video>
         </div>
             
         <div class="date pull-right">
@@ -20,7 +20,7 @@
 
             {%if user.is_authenticated %}
                 {% ifequal user post.author %}
-                <a class="btn btn-succes" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-succes" href="{% url 'post_edit' id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
                 {%endifequal%}
             {%endif%}
         </div>
@@ -30,7 +30,7 @@
         
         <p>{{ post.text|linebreaksbr }}</p>
 
-        <a class="btn btn-succes" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+        <a class="btn btn-succes" href="{% url 'add_comment_to_post' id=post.id %}">Add comment</a>
         <hr>
         {% for comment in post.comments.all reversed %}
         <div class="comment">

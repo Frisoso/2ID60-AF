@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import uuid
 from django.db import models
 from django.utils import timezone
 from videokit.models import VideoField, VideoSpecField
@@ -9,6 +10,7 @@ def upload_to(instance, filename):
     return 'media_items/%s' % filename
 
 class Post(models.Model):
+    id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     video = VideoField( upload_to = upload_to,
                         width_field = 'video_width', height_field = 'video_height',
                         rotation_field = 'video_rotation',
