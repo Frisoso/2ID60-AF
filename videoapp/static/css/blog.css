@@ -9,10 +9,10 @@ body{
 }
 
 .page-header {
-    background-color: #F44336;
+    background-color: #F44336 !important;
     margin-top: 0;
     padding: 10px;
-    border-bottom: #BDBDBD solid 2px;
+    border-bottom: #BDBDBD solid 1px;
     height: 75px;
 }
 
@@ -68,7 +68,6 @@ svg a:hover{
     border-radius: 50px;
     text-align: center;
     font-size: 30px;
-    box-shadow: #BDBDBD 1px 1px;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
 
@@ -76,10 +75,11 @@ svg a:hover{
     background-color: rgb(255, 208, 67);
     
 }
-.fab:active{
-    box-shadow: #BDBDBD 0px 0px;
-}
 
+video{
+    width: 100%;
+    max-height: 500px;
+}
 
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
@@ -159,7 +159,15 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
-
+.post-detail{
+    color: white;
+}
+ 
+.videocontainer{
+    margin-left: -15px;
+    margin-right: -15px;
+    background-color:black !important;
+}
 
 .post {
     /* margin-bottom: 70px; */
@@ -178,3 +186,29 @@ h1, h2, h3, h4 {
     margin: 20px 0px 20px 20px;
 }
 
+btn {
+    padding: 10px 20px;
+    border: 2px gray solid;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius:0;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #919191;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #919191;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: rgb(112, 112, 112);
+    box-shadow: none;
+} 

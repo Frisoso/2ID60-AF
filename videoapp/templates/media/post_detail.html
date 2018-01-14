@@ -1,39 +1,47 @@
 {% extends 'media/base.html' %}
 {% load static%}
 {% block content %}
-    <div class="post">
+    <div class="post-detail">
             <script type="text/javascript">
                 document.title = "{{post.title}}";
-            </script>>
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-        {% endif %}
-        {%if user.is_authenticated %}
+                elements = document.getElementsByClassName("container");
+                for (var i = 0; i < elements.length; i++) {
+                    elements[i].style.backgroundColor="#222";
+                }
+                document.body.style.backgroundColor = "#222";
+            </script>
 
-        {% ifequal user post.author %}
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        {%endifequal%}
-        {%endif%}
+        <div class="videocontainer">
+            <video src="" class="theater-video" poster="{% get_media_prefix %}{{ post.image }}"></video>
+        </div>
+            
+        <div class="date pull-right">
+            {{ post.published_date }}
+
+            {%if user.is_authenticated %}
+                {% ifequal user post.author %}
+                <a class="btn btn-succes" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                {%endifequal%}
+            {%endif%}
+        </div>
+        
         
         <h1>{{ post.title }}</h1>
         
         <p>{{ post.text|linebreaksbr }}</p>
-        <img src="{% get_media_prefix %}{{ post.image }}" alt="post image" class="img-responsive" ></img>
-    </div>
 
-    <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
-    <hr>
-    {% for comment in post.comments.all reversed %}
-    <div class="comment">
-        <div class="date">
-            {{ comment.created_date }}
+        <a class="btn btn-succes" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+        <hr>
+        {% for comment in post.comments.all reversed %}
+        <div class="comment">
+            <div class="date">
+                {{ comment.created_date }}
+            </div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
         </div>
-        <strong>{{ comment.author }}</strong>
-        <p>{{ comment.text|linebreaks }}</p>
-    </div>
 {% empty %}
     <p>No comments here yet :(</p>
 {% endfor %}
+</div>
 {% endblock %}

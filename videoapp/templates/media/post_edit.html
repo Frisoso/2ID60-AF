@@ -1,10 +1,12 @@
 {% extends 'media/base.html' %}
 
 {% block content %}
-    <h1>New post</h1>
-    <form method="POST" class="post-form" enctype="multipart/form-data">
+    <h1>Upload or edit video</h1>
+    <form method="POST" class="post-form form-group" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p><label for="id_title">Title:</label> <input name="title" id="id_title" class="form-control" required="" type="text" maxlength="200"></p>
+        <p><label for="id_text">Text:</label> <textarea name="text" id="id_text" class="form-control" required="" rows="10" cols="40"></textarea></p>
+        <p><label for="id_image">Image:</label> <input name="image" id="id_image" class="form-control" required="" type="file"></p>
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 
