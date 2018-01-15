@@ -27,7 +27,8 @@ class Post(models.Model):
     video_rotation = models.FloatField(null = True, blank = True)
     video_mimetype = models.CharField(max_length = 32, null = True, blank = True)
     video_duration = models.IntegerField(null = True, blank = True)
-    video_thumbnail = models.ImageField(null = True, blank = True)
+    video_thumbnail = models.ImageField(null = True, blank = True,
+                                        storage = CacheMediaStorage())
 
     #video_mp4 = VideoSpecField(source = 'video', format = 'mp4')
     #video_ogg = VideoSpecField(source = 'video', format = 'ogg')
@@ -57,9 +58,13 @@ class Post(models.Model):
 
         return False
 
+    def save(self, *args, **kwargs):
+        super(Post, self).save(*args, **kwargs)
+        self.delete_cache()
+
     def delete_cache(self):
-        storage, path = self.video_cache.storage, self.video_cache.path
-        storage.delete(path)
+        video_storage, video_path = self.video_cache.storage, self.video_cache.path
+        video_storage.delete(video_path)
 
 class Comment(models.Model):
     post = models.ForeignKey('Post', related_name='comments')

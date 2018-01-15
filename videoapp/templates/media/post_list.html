@@ -24,7 +24,7 @@
     <div class="post">
         <a href="{% url 'post_detail' id=post.id %}">
             <div class="list-img-wrapper">
-                    <img src="{% get_media_prefix %}{{ post.video_thumbnail }}" alt="post image" class="list-img">
+                    <img src="{{ post.video_thumbnail.url }}" alt="post image" class="list-img">
                     <i class="fa fa-play-circle img-icon" aria-hidden="true"></i>
             </div>
         </a>

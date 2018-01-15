@@ -49,11 +49,6 @@ def post_new(request):
 
                 post_item.save()
 
-                post_item.delete_cache()
-
-                #media_item.video_mp4.generate()
-                #media_item.video_ogg.generate()
-
                 return HttpResponseRedirect(reverse('post_list'))
 
     context = {
