@@ -17,7 +17,7 @@
                 <a href="{% url 'post_new' %}" class="top-menu fab fab-action-button"><i class="fa fa-upload" aria-hidden="true"></i></a>
 
                 {% if user.is_authenticated %}                    
-                    <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+                    <p class="top-menu"><a href="{% url 'profile'%}">Hello {{ user.username }}</a> <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
                 {% else %}
                 <a href="{% url 'signup' %}" class="top-menu">new account<span class="glyphicon glyphicon-plus"></span></a><br />
                     <a href="{% url 'login' %}" class="top-menu">login<span class="glyphicon glyphicon-lock"></span></a>
