@@ -5,43 +5,38 @@
     document.title = "VIDEOwebsite";
 </script>
 <div class="row">
+    <div class="col-xs-12">
     <div class="h2-header">
-                <h2>
-                Top videos 
-            </h2>
-            <div class="segmented">
-                    <label class="checked"><input type="radio" name="segmented" checked /> Date</label>
-                    <label><input type="radio" name="segmented" /> Views</label>
-                  </div>
-                </div>
+        <h2>
+            Top videos 
+        </h2>
+        <div class="segmented" id="segmentselector">
+            <label class="checked"><input type="radio" name="segmented" checked />date</label>
+            <label><input type="radio" name="segmented" />views</label>
+        </div>
+        </div>
+    </div>
 </div>
-
-<div class="row">
-
+<div class="row" id="post-list-id">
 
 {% for post in posts reversed %}
-<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6" data-date="{{ post.upload_date|date:'c'}}" data-views="{{ post.views }}">
     <div class="post">
-
         <a href="{% url 'post_detail' id=post.id %}">
-        <div class="list-img-wrapper">
-                <img src="{% get_media_prefix %}{{ post.video_thumbnail }}" alt="post image" class="list-img">
-                <i class="fa fa-play-circle img-icon" aria-hidden="true"></i>
-        </div>
-    </a>
+            <div class="list-img-wrapper">
+                    <img src="{% get_media_prefix %}{{ post.video_thumbnail }}" alt="post image" class="list-img">
+                    <i class="fa fa-play-circle img-icon" aria-hidden="true"></i>
+            </div>
+        </a>
         <div class="date">
-            {{ post.published_date }}
+            {{ post.upload_date|date:'Y-m-d H:i'}}
         </div>
         <div class="list-author">
-                <h3><a href="{% url 'post_detail' id=post.id %}">{{ post.title }}</a></h3>
-                <!-- <p>{{ post.text|linebreaksbr }}</p> -->
-                <div>Posted by: {{ post.author }}</div>
-                Views: {{post.views}} Comments: {{ post.comments.count }}
-                
+            <h3><a href="{% url 'post_detail' id=post.id %}">{{ post.title }}</a></h3>
+            <div>Posted by: {{ post.author }}</div>
+            Views: {{post.views}} Comments: {{ post.comments.count }}
         </div>
-        
     </div>
-    
 </div>
 {% endfor %}
 </div>

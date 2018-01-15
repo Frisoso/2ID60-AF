@@ -2,42 +2,46 @@
 {% load static%}
 {% block content %}
 <script type="text/javascript">
-    document.title = "VIDEOwebsite";
+    document.title = "{{user.username}}";
 </script>
 <div class="row">
-    <div class="h2-header">
-                <h2>
+    <div class="col-xs-12">
+        <div class="h2-header">
+            <h2>
                 Hello {{user.username}}
+                <span class="pull-right"><small><a href="{% url 'logout' %}">Log out</a></small></span>
             </h2>
+        </div>
+    </div>
 </div>
 
 <div class="row">
-
+{% if posts %}
 
 {% for post in posts reversed %}
 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
     <div class="post">
-
         <a href="{% url 'post_detail' id=post.id %}">
-        <div class="list-img-wrapper">
-                <img src="{% get_media_prefix %}{{ post.video_thumbnail }}" alt="post image" class="list-img">
-                <i class="fa fa-play-circle img-icon" aria-hidden="true"></i>
-        </div>
-    </a>
+            <div class="list-img-wrapper">
+                    <img src="{% get_media_prefix %}{{ post.video_thumbnail }}" alt="post image" class="list-img">
+                    <i class="fa fa-play-circle img-icon" aria-hidden="true"></i>
+            </div>
+        </a>
         <div class="date">
-            {{ post.published_date }}
+            {{ post.upload_date|date:'Y-m-d H:i'}}
         </div>
         <div class="list-author">
-                <h3><a href="{% url 'post_detail' id=post.id %}">{{ post.title }}</a></h3>
-                <!-- <p>{{ post.text|linebreaksbr }}</p> -->
-                <div>Posted by: {{ post.author }}</div>
-                Views: {{post.views}} Comments: {{ post.comments.count }}
-                
+            <h3><a href="{% url 'post_detail' id=post.id %}">{{ post.title }}</a></h3>
+            <div>Posted by: {{ post.author }}</div>
+            Views: {{post.views}} Comments: {{ post.comments.count }}
         </div>
-        
     </div>
-    
 </div>
 {% endfor %}
+{% else %}
+<div class="col-xs-12">
+<p>You haven't uploaded any videos, <a href="{% url 'post_new' %}">upload now?</a></p>
+{% endif%}
+</div>
 </div>
 {%endblock%}

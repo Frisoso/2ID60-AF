@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -16,6 +16,8 @@ def post_list(request):
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
+    # post.views = post.views + 1
+    # post.save()
     return render(request, 'media/post_detail.html', {'post': post})
 
 @login_required
@@ -109,3 +111,11 @@ def signup(request):
 def profile(request):
     posts = Post.objects.filter(author=request.user).order_by('upload_date')
     return render(request, 'media/account.html', {'posts': posts})
+
+
+def update_view_count(request, id):
+    post = get_object_or_404(Post, id=id)
+    # if request.method == "GET":
+    post.views = post.views + 1
+    post.save()
+    return HttpResponse("Update successful!")

@@ -1,7 +1,7 @@
 {% extends 'media/base.html' %}
 {% load static%}
 {% block content %}
-    <div class="post-detail">
+    <div class="post-detail">   
             <script type="text/javascript">
                 document.title = "{{post.title}}";
                 elements = document.getElementsByClassName("container");
@@ -9,10 +9,11 @@
                     elements[i].style.backgroundColor="#222";
                 }
                 document.body.style.backgroundColor = "#222";
+                CSRF_TOKEN = "{{ csrf_token }}";      
             </script>
 
         <div class="videocontainer">
-            <video controls src="{{ post.video.url }}" class="theater-video" poster="{% get_media_prefix %}{{ post.video_thumbnail }}" type="{{ post.video_mimetype }}"></video>
+            <video controls src="{{ post.video.url }}" data-uuid="{{post.id}}" class="theater-video" poster="{% get_media_prefix %}{{ post.video_thumbnail }}" type="{{ post.video_mimetype }}"></video>
         </div>
             
         <div class="date pull-right">
@@ -20,18 +21,20 @@
 
             {%if user.is_authenticated %}
                 {% ifequal user post.author %}
-                <a class="btn btn-succes" href="{% url 'post_edit' id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-default" href="{% url 'post_edit' id=post.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
                 {%endifequal%}
             {%endif%}
         </div>
         
         
         <h1>{{ post.title }}</h1>
-        
-        <p>{{ post.text|linebreaksbr }}</p>
-
-        <a class="btn btn-succes" href="{% url 'add_comment_to_post' id=post.id %}">Add comment</a>
+        <small style="color:darkgray">description:</small>
+        <p>{{ post.description|linebreaksbr }}</p>
         <hr>
+        
+
+        
+        {% if post.comments.all %}
         {% for comment in post.comments.all reversed %}
         <div class="comment">
             <div class="date">
@@ -40,8 +43,12 @@
             <strong>{{ comment.author }}</strong>
             <p>{{ comment.text|linebreaks }}</p>
         </div>
-{% empty %}
-    <p>No comments here yet :(</p>
-{% endfor %}
+        {% endfor %}
+        {% else %}
+        <p>No comments here yet :(</p>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'add_comment_to_post' id=post.id %}">Add comment</a>    
+
+
 </div>
 {% endblock %}

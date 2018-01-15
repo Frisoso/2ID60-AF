@@ -9,7 +9,7 @@ body{
 }
 
 .page-header {
-    background-color: #F44336 !important;
+    background-color: #167efb !important;
     margin-top: 0;
     padding: 10px;
     border-bottom: #BDBDBD solid 1px;
@@ -60,13 +60,14 @@ svg a:hover{
 .fab{
     position: relative;
     top: 35px;
-    right: 50px;
     display: block;
     background-color: #FFC107;
     width: 50px;
     height: 50px;
     border-radius: 50px;
     text-align: center;
+    vertical-align: middle;
+    line-height: 50px; 
     font-size: 30px;
     transition: background-color 0.2s, box-shadow 0.2s;
 }
@@ -84,8 +85,6 @@ video{
 .top-menu, .top-menu:hover, .top-menu:visited {
     color: #ffffff;
     float: right;
-    margin-right: 20px;
-    
     text-decoration: none;
 }
 
@@ -103,14 +102,12 @@ video{
 .segmented {
     margin: 0px 10px 10px 10px;
     display: flex;
-    /* flex-flow:row wrap; */
     box-sizing:border-box;
-    font-family:"Helvetica Neue";
+    /* font-family:"Helvetica Neue"; */
     font-size:90%;
     text-align:center;
 }
 .segmented label {
-    /* display:block;    */
     flex:1;
     box-sizing:border-box;
     border:1px solid #167efb;
@@ -164,13 +161,10 @@ h1, h2, h3, h4 {
 }
  
 .videocontainer{
-    margin-left: -15px;
-    margin-right: -15px;
     background-color:black !important;
 }
 
 .post {
-    /* margin-bottom: 70px; */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

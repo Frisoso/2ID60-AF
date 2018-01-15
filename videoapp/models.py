@@ -38,6 +38,7 @@ class Post(models.Model):
     upload_date = models.DateTimeField(default=timezone.now)
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
+    views = models.IntegerField(default=0)
 
     def publish(self):
         self.publish_date = timezone.now()
