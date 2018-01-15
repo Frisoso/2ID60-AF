@@ -4,6 +4,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from videokit.models import VideoField, VideoSpecField
+from videosite.storage_backends import CacheMediaStorage, PublicMediaStorage
 
 # Create your models here.
 def upload_to(instance, filename):
@@ -12,11 +13,15 @@ def upload_to(instance, filename):
 class Post(models.Model):
     id = models.UUIDField(primary_key = True, default = uuid.uuid4, editable = False)
     video = VideoField( upload_to = upload_to,
+                        null = True, blank = True, default = None,
+                        storage = PublicMediaStorage() )
+    video_cache = VideoField( upload_to = upload_to,
                         width_field = 'video_width', height_field = 'video_height',
                         rotation_field = 'video_rotation',
                         mimetype_field = 'video_mimetype',
                         duration_field = 'video_duration',
-                        thumbnail_field = 'video_thumbnail')
+                        thumbnail_field = 'video_thumbnail',
+                        storage = CacheMediaStorage())
     video_width = models.IntegerField(null = True, blank = True)
     video_height = models.IntegerField(null = True, blank = True)
     video_rotation = models.FloatField(null = True, blank = True)
@@ -50,6 +55,10 @@ class Post(models.Model):
             return True
 
         return False
+
+    def delete_cache(self):
+        storage, path = self.video_cache.storage, self.video_cache.path
+        storage.delete(path)
 
 class Comment(models.Model):
     post = models.ForeignKey('Post', related_name='comments')

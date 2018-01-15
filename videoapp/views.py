@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from videoapp.forms import PostCreateForm, CommentForm
 from videoapp.models import Post
+from videosite.storage_backends import CacheMediaStorage
 
 def post_list(request):
     posts = Post.objects.filter(upload_date__lte=timezone.now()).order_by('upload_date')
@@ -30,7 +31,8 @@ def post_new(request):
             video = request.FILES.get('video', None)
 
             if video:
-                post_item = Post(video = video)
+                post_item = Post(video = video,
+                                 video_cache = video)
 
                 title = request.POST.get('title', None);
                 description = request.POST.get('description', None);
@@ -44,6 +46,8 @@ def post_new(request):
                 post_item.upload_date = timezone.now()
 
                 post_item.save()
+
+                post_item.delete_cache()
 
                 #media_item.video_mp4.generate()
                 #media_item.video_ogg.generate()

@@ -12,7 +12,7 @@
             </script>
 
         <div class="videocontainer">
-            <video controls src="{% get_media_prefix %}{{post.video}}" class="theater-video" poster="{% get_media_prefix %}{{ post.video_thumbnail }}" type="{{ post.video_mimetype }}"></video>
+            <video controls src="{{ post.video.url }}" class="theater-video" poster="{% get_media_prefix %}{{ post.video_thumbnail }}" type="{{ post.video_mimetype }}"></video>
         </div>
             
         <div class="date pull-right">
