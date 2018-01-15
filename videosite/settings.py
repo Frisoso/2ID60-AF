@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'videoapp',
     'videokit',
-    'celery',
     'storages',
 ]
 
@@ -125,6 +124,10 @@ AWS_S3_REGION_NAME = 'eu-central-1'
 AWS_ACCESS_KEY_ID = 'AKIAJYZ5UZNMJ5CODDKQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'CacheControl': 'max-age=94608000',
+}
 
 AWS_STATIC_LOCATION = 'static'
 STATICFILES_STORAGE = 'videosite.storage_backends.StaticStorage'
@@ -133,6 +136,9 @@ STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
 AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
 DEFAULT_FILE_STORAGE = 'videosite.storage_backends.PublicMediaStorage'
 
+CACHE_MEDIA_URL = ''
+CACHE_MEDIA_LOCATION = os.path.join(BASE_DIR, 'media-cache')
+CACHE_FILE_STORAGE = 'videosite.storage_backends.CacheMediaStorage'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'videoapp/static/'),
@@ -145,5 +151,5 @@ STATICFILES_DIRS = [
 #STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media-uploads')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media-cache')
 
