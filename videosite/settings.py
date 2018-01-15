@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'videoapp',
     'videokit',
     'celery',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -117,10 +118,32 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Settings for usage of Amazon AWS S3
+# Using django-storages i.c.w. Boko3
+AWS_STORAGE_BUCKET_NAME = '2id60-af'
+AWS_S3_REGION_NAME = 'eu-central-1'
+AWS_ACCESS_KEY_ID = 'AKIAJYZ5UZNMJ5CODDKQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+AWS_STATIC_LOCATION = 'static'
+STATICFILES_STORAGE = 'videosite.storage_backends.StaticStorage'
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
+
+AWS_PUBLIC_MEDIA_LOCATION = 'media/public'
+DEFAULT_FILE_STORAGE = 'videosite.storage_backends.PublicMediaStorage'
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'videoapp/static/'),
+]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_URL = '/static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media-uploads')
+
