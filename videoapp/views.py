@@ -64,7 +64,7 @@ def post_edit(request, id):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.published_date = timezone.now()
+            post.publish_date = timezone.now()
             post.save()
             return redirect('post_detail', id=post.id)
     else:
@@ -95,8 +95,13 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('created_date')
+            posts = Post.objects.filter(upload_date__lte=timezone.now()).order_by('upload_date')
             return render(request, 'media/post_list.html', {'posts': posts})
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def profile(request):
+    posts = Post.objects.filter(author=request.user).order_by('upload_date')
+    return render(request, 'media/account.html', {'posts': posts})
